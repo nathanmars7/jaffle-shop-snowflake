@@ -1,0 +1,14 @@
+# dbt build artifacts
+target/
+dbt_packages/
+logs/
+
+# local user config
+.user.yml
+
+# never commit credentials
+profiles.yml
+
+# OS noise
+.DS_Store
+dbt_internal_packages/

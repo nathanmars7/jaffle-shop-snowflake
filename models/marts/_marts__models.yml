@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: orders
+    description: One row per order, enriched with the total amount paid.
+    columns:
+      - name: order_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key to the customers model.
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('customers')
+                field: customer_id
+      - name: amount
+        description: Total amount paid for the order, in USD.
+        tests:
+          - not_null
+
+  - name: customers
+    description: One row per customer, with lifetime order statistics.
+    columns:
+      - name: customer_id
+        description: Primary key.
+        tests:
+          - unique
+          - not_null
+      - name: lifetime_value
+        description: Sum of all order amounts for this customer (0 if no orders).

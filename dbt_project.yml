@@ -1,0 +1,28 @@
+# The name of the project. Used to namespace models and configs below.
+name: jaffle_shop
+version: "1.0.0"
+
+# Which entry in ~/.dbt/profiles.yml holds the connection details.
+profile: jaffle_shop_snowflake
+
+# Where dbt looks for each kind of file (these are the defaults, listed for clarity).
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+# Where compiled SQL and run artifacts go (git-ignored).
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Default materializations by folder:
+#   staging models -> views (cheap, always fresh)
+#   marts models   -> tables (fast to query for end users)
+models:
+  jaffle_shop:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
